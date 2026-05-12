@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ASEAN MAP · Motorcyclist Safety Perception Survey (Baseline)</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;background:#f2f1ec;color:#1c1c1e;line-height:1.5}
+.hdr{background:#fff;border-bottom:1px solid #e0dfd8;padding:12px 20px;position:sticky;top:0;z-index:100}
+.hdr-inner{max-width:680px;margin:0 auto}
+.hdr-top{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.hdr-title{font-size:13px;font-weight:600;color:#1c1c1e}
+.hdr-sub{font-size:11px;color:#636366}
+.prog-row{display:flex;justify-content:space-between;margin-bottom:4px}
+.prog-lbl{font-size:11px;color:#636366}
+.prog-pct{font-size:11px;font-weight:600;color:#1c1c1e}
+.prog-bar{height:4px;background:#e0dfd8;border-radius:2px;overflow:hidden}
+.prog-fill{height:100%;background:#1D9E75;border-radius:2px;transition:width .4s ease}
+.wrap{max-width:680px;margin:0 auto;padding:20px 16px 80px}
+.card{background:#fff;border-radius:12px;border:1px solid #e0dfd8;padding:24px;margin-bottom:16px}
+.sec-tag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;padding:3px 10px;border-radius:6px;margin-bottom:12px}
+.sec-tag.blue{background:#e6f1fb;color:#185FA5}
+.sec-tag.amber{background:#faeeda;color:#854F0B}
+.sec-tag.gray{background:#f2f1ec;color:#636366}
+.sec-tag.green{background:#eaf3de;color:#3B6D11}
+.sec-h{font-size:20px;font-weight:600;color:#1c1c1e;margin-bottom:6px}
+.sec-desc{font-size:13px;color:#636366;line-height:1.65;margin-bottom:22px}
+.q-block{margin-bottom:26px}
+.q-label{display:block;font-weight:600;font-size:14px;color:#1c1c1e;margin-bottom:8px;line-height:1.5}
+.q-num{color:#185FA5;margin-right:4px}
+.q-hint{font-size:12px;color:#636366;font-style:italic;margin-bottom:8px;margin-top:-4px;line-height:1.5}
+.q-req{color:#dc2626;margin-left:1px}
+.new-badge{display:inline-block;background:#faeeda;color:#854F0B;border-radius:3px;font-size:9px;font-weight:700;padding:1px 5px;margin-left:5px;vertical-align:middle;letter-spacing:.4px}
+.opt{display:flex;align-items:flex-start;gap:10px;width:100%;padding:10px 14px;border-radius:8px;margin-bottom:7px;cursor:pointer;border:1px solid #e0dfd8;background:#fff;font-family:inherit;font-size:14px;color:#1c1c1e;text-align:left;transition:border-color .15s,background .15s}
+.opt:hover{border-color:#b5d4f4;background:#f8fbff}
+.opt.sel{border:2px solid #185FA5;background:#e6f1fb;color:#185FA5}
+.opt-icon{flex-shrink:0;width:18px;height:18px;margin-top:1px;border:2px solid #c0c0c0;display:flex;align-items:center;justify-content:center}
+.opt.sel .opt-icon{border-color:#185FA5;background:#185FA5}
+.opt-icon.r{border-radius:50%}
+.opt-icon.s{border-radius:3px}
+.opt-dot{width:8px;height:8px;border-radius:50%;background:#fff}
+.opt-chk{font-size:11px;color:#fff;font-weight:700}
+.txt{width:100%;padding:10px 13px;border-radius:8px;border:1px solid #e0dfd8;font-family:inherit;font-size:14px;color:#1c1c1e;background:#fff;outline:none;transition:border-color .15s}
+.txt:focus{border-color:#185FA5;box-shadow:0 0 0 3px rgba(24,95,165,.12)}
+.lk-q{font-weight:600;font-size:14px;color:#1c1c1e;margin-bottom:10px;line-height:1.5}
+.lk-row{display:flex;gap:6px}
+.lk-btn{flex:1;padding:10px 4px;border-radius:8px;cursor:pointer;border:1px solid #e0dfd8;background:#f8f7f5;color:#636366;font-size:11px;text-align:center;line-height:1.3;transition:all .15s;font-family:inherit;min-width:0}
+.lk-btn:hover{border-color:#b5d4f4;background:#f0f7fe}
+.lk-btn.sel{border:2px solid #185FA5;background:#185FA5;color:#fff;font-weight:600}
+.lk-num{font-size:17px;font-weight:600;display:block;margin-bottom:3px}
+.lk-lbl{font-size:9px;line-height:1.3;display:block}
+.lk-block{margin-bottom:22px;padding-bottom:20px;border-bottom:1px solid #e0dfd8}
+.mx-wrap{overflow-x:auto;margin-top:10px}
+.mx-table{width:100%;border-collapse:collapse;font-size:13px;min-width:500px}
+.mx-th{padding:8px 6px;text-align:center;font-weight:600;color:#1c1c1e;font-size:11px;background:#f8f7f5;border-bottom:1px solid #e0dfd8}
+.mx-th:first-child{text-align:left;padding-left:12px;min-width:200px}
+.mx-td{padding:10px 6px;text-align:center;border-bottom:1px solid #f2f1ec}
+.mx-td:first-child{text-align:left;padding-left:12px;font-size:13px;color:#636366;line-height:1.4}
+.mx-tr:nth-child(even){background:#f8f7f5}
+.mx-dot{width:24px;height:24px;border-radius:50%;cursor:pointer;border:2px solid #e0dfd8;background:#fff;display:inline-flex;align-items:center;justify-content:center;transition:all .15s}
+.mx-dot:hover{border-color:#b5d4f4}
+.mx-dot.sel{border-color:#185FA5;background:#185FA5}
+.mx-dot-inner{width:8px;height:8px;border-radius:50%;background:#fff}
+.info-box{background:#e6f1fb;border:1px solid #b5d4f4;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:#185FA5;line-height:1.65}
+.warn-box{background:#faeeda;border:1px solid #f5c878;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:#854F0B;line-height:1.65}
+.ok-box{background:#eaf3de;border:1px solid #c0dd97;border-radius:8px;padding:12px 16px;margin-bottom:18px;font-size:13px;color:#3B6D11;line-height:1.65}
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:18px;border-top:1px solid #e0dfd8}
+.btn-back{padding:11px 22px;border-radius:8px;border:1px solid #e0dfd8;background:transparent;color:#636366;font-size:14px;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-back:hover{background:#f8f7f5}
+.btn-next{padding:11px 28px;border-radius:8px;border:none;background:#185FA5;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-next:hover{background:#0c447c}
+.btn-submit{padding:12px 32px;border-radius:8px;border:none;background:#1D9E75;color:#fff;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .15s}
+.btn-submit:hover{background:#0f6e56}
+.btn-submit:disabled{background:#9FE1CB;cursor:wait}
+hr.div{border:none;border-top:1px solid #e0dfd8;margin:20px 0}
+.center{text-align:center}
+@media(max-width:480px){.lk-lbl{font-size:8px}.card{padding:16px}}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-inner">
+    <div class="hdr-top">
+      <div>
+        <div class="hdr-title">ASEAN MAP &nbsp;·&nbsp; Motorcyclist Safety Perception Survey</div>
+        <div class="hdr-sub" id="sec-name">Baseline Edition v1</div>
+      </div>
+    </div>
+    <div id="prog-area" style="display:none">
+      <div class="prog-row">
+        <span class="prog-lbl" id="prog-lbl">Section 1</span>
+        <span class="prog-pct" id="prog-pct">0%</span>
+      </div>
+      <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="root"></main>
+
+<script>
+// ═══════════════════════════════════════════════════════════════
+//  CONFIG — replace with your deployed Apps Script Web App URL
+// ═══════════════════════════════════════════════════════════════
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx11sj-WdmfdXd0vA7xqlVGZJs93zoMzE49Nn_qqvn5munB_j-d1SLBO6HVXC1JYFfi3Q/exec';
+const SURVEY_VERSION = 'ASEAN-MAP-Baseline-v1';
+
+// ─── State ────────────────────────────────────────────────────
+let answers = {};
+let currentSec = 0;
+let submitting = false;
+
+// ─── Reference data ───────────────────────────────────────────
+const ASEAN = ['Malaysia','Thailand','Vietnam','Indonesia','Philippines','Myanmar','Cambodia','Laos','Singapore','Brunei','Other ASEAN country','Outside ASEAN'];
+const MOTO_TYPES = ['Underbone / cub (e.g. Honda Wave, Yamaha EX5)','Automatic scooter (e.g. Honda PCX, Yamaha NMAX)','Sport bike (e.g. Yamaha R15, Honda CBR150)','Touring / cruiser (e.g. Honda CB500, Kawasaki Versys)','Naked / standard (e.g. Honda CB150R, Yamaha MT-15)','Dirt / off-road bike','Electric motorcycle or scooter','Other'];
+const CC = ['125 cc and below','126 – 150 cc','151 – 200 cc','201 – 250 cc','251 – 500 cc','501 – 800 cc','Above 801 cc','Electric (no cc)','Not sure'];
+
+const SEC_NAMES = {0:'Introduction',1:'A — Demographics',2:'B — Riding Profile',3:'C — Helmet & PPE',4:'D — Riding Behaviour',5:'E — Crash Experience',6:'F — Safety Tech Knowledge',7:'G — Tech Perception',8:'H — Risk & Awareness',9:'I — Training',10:'J — Buying Preferences',11:'K — Star Rating',12:'Lucky Draw & Contact',13:'Complete',14:'B — Non-Rider'};
+const RIDER_FLOW = [0,1,2,3,4,5,6,7,8,9,10,11,12,13];
+const NONRIDER_FLOW = [0,1,14,6,7,8,9,10,11,12,13];
+
+function isRider(){ return answers['A9']==='Yes'; }
+function getFlow(){ return (currentSec<=1||isRider())?RIDER_FLOW:NONRIDER_FLOW; }
+
+function navTo(dir){
+  const flow=getFlow(), idx=flow.indexOf(currentSec);
+  if(dir==='next'&&idx<flow.length-1) currentSec=flow[idx+1];
+  if(dir==='prev'&&idx>0) currentSec=flow[idx-1];
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function setA(k,v){answers[k]=v;render();}
+function toggleA(k,v){const c=answers[k]||[];answers[k]=c.includes(v)?c.filter(x=>x!==v):[...c,v];render();}
+function setMx(k,r,v){answers[k]=Object.assign({},answers[k]||{},{[r]:v});render();}
+
+// ─── DOM helpers ──────────────────────────────────────────────
+function el(tag,opts={},ch=[]){
+  const e=document.createElement(tag);
+  for(const[k,v]of Object.entries(opts)){
+    if(k==='cls')e.className=v;
+    else if(k==='style')e.style.cssText=v;
+    else if(k.startsWith('on'))e.addEventListener(k.slice(2),v);
+    else e.setAttribute(k,v);
+  }
+  for(const c of ch){if(c==null)continue;e.appendChild(typeof c==='string'?document.createTextNode(c):c);}
+  return e;
+}
+const div=(cls,style='',ch=[])=>el('div',{cls,style},ch);
+const span=(cls,t)=>el('span',{cls},[t]);
+function newBadge(){return el('span',{cls:'new-badge'},['NEW']);}
+function infoBox(t){return el('div',{cls:'info-box'},[t]);}
+function warnBox(t){return el('div',{cls:'warn-box'},[t]);}
+function okBox(t){return el('div',{cls:'ok-box'},[t]);}
+function card(ch){return el('div',{cls:'card'},[...ch]);}
+function secTag(t,type='blue'){return el('span',{cls:`sec-tag ${type}`},[t]);}
+function secH(t){return el('h2',{cls:'sec-h'},[t]);}
+function secDesc(t){return el('p',{cls:'sec-desc'},[t]);}
+
+function qLabel(num,text,extras=[],req=false){
+  const lbl=el('label',{cls:'q-label'});
+  lbl.appendChild(span('q-num',num+'.'));
+  lbl.appendChild(document.createTextNode(' '+text));
+  if(req) lbl.appendChild(el('sup',{cls:'q-req'},['*']));
+  extras.forEach(x=>lbl.appendChild(x));
+  return lbl;
+}
+
+// ─── Question components ──────────────────────────────────────
+function radioQ(num,text,key,opts,req=false,hint='',extras=[]){
+  const wrap=div('q-block');
+  wrap.appendChild(qLabel(num,text,extras,req));
+  if(hint) wrap.appendChild(el('p',{cls:'q-hint'},[hint]));
+  opts.forEach(opt=>{
+    const v=typeof opt==='string'?opt:opt.v, lbl=typeof opt==='string'?opt:opt.l;
+    const sel=answers[key]===v;
+    const btn=el('button',{cls:`opt${sel?' sel':''}`,onclick:()=>setA(key,v)});
+    const ic=el('span',{cls:`opt-icon r${sel?' sel':''}`});
+    if(sel) ic.appendChild(span('opt-dot',''));
+    btn.appendChild(ic);
+    btn.appendChild(el('span',{},[lbl]));
+    wrap.appendChild(btn);
+  });
+  return wrap;
+}
+
+function checkQ(num,text,key,opts,req=false,hint='',extras=[]){
+  const wrap=div('q-block');
+  wrap.appendChild(qLabel(num,text,extras,req));
+  if(hint) wrap.appendChild(el('p',{cls:'q-hint'},[hint]));
+  opts.forEach(opt=>{
+    const v=typeof opt==='string'?opt:opt.v, lbl=typeof opt==='string'?opt:opt.l;
+    const cur=answers[key]||[], sel=cur.includes(v);
+    const btn=el('button',{cls:`opt${sel?' sel':''}`,onclick:()=>toggleA(key,v)});
+    const ic=el('span',{cls:`opt-icon s${sel?' sel':''}`});
+    if(sel) ic.appendChild(span('opt-chk','✓'));
+    btn.appendChild(ic);
+    btn.appendChild(el('span',{},[lbl]));
+    wrap.appendChild(btn);
+  });
+  return wrap;
+}
+
+function textQ(num,text,key,ph='',hint='',extras=[],req=false){
+  const wrap=div('q-block');
+  wrap.appendChild(qLabel(num,text,extras,req));
+  if(hint) wrap.appendChild(el('p',{cls:'q-hint'},[hint]));
+  const inp=el('input',{cls:'txt',type:'text',placeholder:ph,value:answers[key]||''});
+  inp.addEventListener('input',e=>setA(key,e.target.value));
+  wrap.appendChild(inp);
+  return wrap;
+}
+
+function likertQ(num,text,key,extras=[]){
+  const LABS=['Strongly\ndisagree','Disagree','Neutral','Agree','Strongly\nagree'];
+  const wrap=div('lk-block');
+  const lbl=el('p',{cls:'lk-q'});
+  lbl.appendChild(span('q-num',num+'.'));
+  lbl.appendChild(document.createTextNode(' '+text));
+  extras.forEach(x=>lbl.appendChild(x));
+  wrap.appendChild(lbl);
+  const row=div('lk-row');
+  for(let i=0;i<5;i++){
+    const n=i+1, sel=answers[key]===n;
+    const btn=el('button',{cls:`lk-btn${sel?' sel':''}`,onclick:()=>setA(key,n)});
+    btn.appendChild(el('span',{cls:'lk-num'},[n+'']));
+    btn.appendChild(el('span',{cls:'lk-lbl'},[LABS[i]]));
+    row.appendChild(btn);
+  }
+  wrap.appendChild(row);
+  return wrap;
+}
+
+function matrixQ(num,text,key,rows,hint=''){
+  const COLS=['Never','Rarely','Sometimes','Often','Always'];
+  const wrap=div('q-block');
+  wrap.appendChild(qLabel(num,text));
+  if(hint) wrap.appendChild(el('p',{cls:'q-hint'},[hint]));
+  const mw=div('mx-wrap');
+  const tbl=el('table',{cls:'mx-table'});
+  const thead=el('thead');
+  const hr=el('tr');
+  hr.appendChild(el('th',{cls:'mx-th'},['Behaviour']));
+  COLS.forEach(c=>hr.appendChild(el('th',{cls:'mx-th'},[c])));
+  thead.appendChild(hr);
+  tbl.appendChild(thead);
+  const tbody=el('tbody');
+  rows.forEach((row,ri)=>{
+    const tr=el('tr',{cls:'mx-tr'});
+    tr.appendChild(el('td',{cls:'mx-td'},[row.label]));
+    COLS.forEach(c=>{
+      const sel=(answers[key]||{})[row.id]===c;
+      const td=el('td',{cls:'mx-td'});
+      const dot=el('button',{cls:`mx-dot${sel?' sel':''}`,onclick:()=>setMx(key,row.id,c)});
+      if(sel) dot.appendChild(span('mx-dot-inner',''));
+      td.appendChild(dot);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+  tbl.appendChild(tbody);
+  mw.appendChild(tbl);
+  wrap.appendChild(mw);
+  return wrap;
+}
+
+function navRow(showBack=true,submitMode=false){
+  const row=div('nav-row');
+  row.appendChild(showBack?el('button',{cls:'btn-back',onclick:()=>navTo('prev')},['← Back']):div(''));
+  if(submitMode){
+    const btn=el('button',{cls:'btn-submit',id:'submit-btn',onclick:submitSurvey},['Submit Survey  ✓']);
+    row.appendChild(btn);
+  } else {
+    row.appendChild(el('button',{cls:'btn-next',onclick:()=>navTo('next')},['Continue  →']));
+  }
+  return row;
+}
+
+// ─── Submit ───────────────────────────────────────────────────
+async function submitSurvey(){
+  if(submitting) return;
+  submitting=true;
+  const btn=document.getElementById('submit-btn');
+  if(btn){btn.disabled=true;btn.textContent='Submitting…';}
+
+  const mx=k=>answers[k]||{};
+  const arr=k=>(answers[k]||[]).join(' | ');
+
+  const payload={
+    timestamp:new Date().toISOString(),
+    survey_version:SURVEY_VERSION,
+    respondent_code:answers['code']||'',
+    A1_gender:answers['A1']||'',
+    A2_age:answers['A2']||'',
+    A3_country:answers['A3']||'',
+    A4_education:answers['A4']||'',
+    A5_marital:answers['A5']||'',
+    A6_income:answers['A6']||'',
+    A7_occupation:answers['A7']||'',
+    A8_area:answers['A8']||'',
+    A9_rides_motorcycle:answers['A9']||'',
+    B1_ownership:answers['B1']||'',
+    B2_moto_type:answers['B2']||'',
+    B3_engine_cc:answers['B3']||'',
+    B4_brand_model:answers['B4']||'',
+    B5_ride_frequency:answers['B5']||'',
+    B6_has_licence:answers['B6']||'',
+    B7_years_riding:answers['B7']||'',
+    B8_trip_distance:answers['B8']||'',
+    B9_ride_purpose:arr('B9'),
+    B10_road_type:answers['B10']||'',
+    B11_night_riding:answers['B11']||'',
+    C1_helmet_frequency:answers['C1']||'',
+    C2_helmet_type:answers['C2']||'',
+    C3_helmet_certified:answers['C3']||'',
+    C4_gear_frequency:answers['C4']||'',
+    D1_phone:mx('D1')['phone']||'',
+    D1_alcohol:mx('D1')['alcohol']||'',
+    D1_speed:mx('D1')['speed']||'',
+    D1_fatigue:mx('D1')['fatigue']||'',
+    D1_nohelmet:mx('D1')['nohelmet']||'',
+    D1_tailgate:mx('D1')['tailgate']||'',
+    D1_weave:mx('D1')['weave']||'',
+    D2_near_misses:answers['D2']||'',
+    D3_emergency_action:answers['D3']||'',
+    D4_braking_confidence:answers['D4']||'',
+    E1_had_crash:answers['E1']||'',
+    E2_crash_count:answers['E2']||'',
+    E3_crash_location:answers['E3']||'',
+    E4_other_vehicle:answers['E4']||'',
+    E5_avoidance_action:arr('E5'),
+    E6_weather:answers['E6']||'',
+    E7_lighting:answers['E7']||'',
+    E8_injury_severity:answers['E8']||'',
+    E9_had_abs_cbs:answers['E9']||'',
+    NR1_pillion:answers['NR1']||'',
+    NR2_past_rider:answers['NR2']||'',
+    NR3_future_intent:answers['NR3']||'',
+    NR4_reason_not_riding:answers['NR4']||'',
+    F1_heard_abs:answers['F1']||'',
+    F2_heard_cbs:answers['F2']||'',
+    F3_abs_knowledge:answers['F3']||'',
+    F4_own_moto_abs_cbs:answers['F4']||'',
+    F5_how_learned:arr('F5'),
+    F6_info_sources:arr('F6'),
+    G1_abs_safety:answers['G1']||'',
+    G2_cbs_safety:answers['G2']||'',
+    G3_wet_roads:answers['G3']||'',
+    G4_feel_safer_abs:answers['G4']||'',
+    G5_feel_safer_cbs:answers['G5']||'',
+    G6_skills_still_needed:answers['G6']||'',
+    G7_overconfidence:answers['G7']||'',
+    G8_maintenance_concern:answers['G8']||'',
+    G9_govt_mandate:answers['G9']||'',
+    G10_trust_manufacturer:answers['G10']||'',
+    G11_important_features:arr('G11'),
+    G12_abs_mandate:answers['G12']||'',
+    G13_cbs_mandate:answers['G13']||'',
+    H1_crash_likelihood:answers['H1']||'',
+    H2_self_risk:answers['H2']||'',
+    H3_seen_campaign:answers['H3']||'',
+    H4_campaign_channels:arr('H4'),
+    H5_heard_asean_map:answers['H5']||'',
+    I1_attended_training:answers['I1']||'',
+    I2_training_types:arr('I2'),
+    I3_barriers:arr('I3'),
+    I3b_free_training:answers['I3b']||'',
+    I4_preferred_format:arr('I4'),
+    I5_training_knowledge:answers['I5']||'',
+    I6_defensive_skills:answers['I6']||'',
+    I7_tips_useful:answers['I7']||'',
+    I8_manufacturer_support:answers['I8']||'',
+    J1_buy_plan:answers['J1']||'',
+    J1b_recent_abs_cbs:answers['J1b']||'',
+    J2_new_or_used:answers['J2']||'',
+    J3_next_type:answers['J3']||'',
+    J4_purchase_factors:arr('J4'),
+    J5_choice_priority:answers['J5']||'',
+    J6_wtp_abs:answers['J6']||'',
+    J7_wtp_cbs:answers['J7']||'',
+    J8_budget:answers['J8']||'',
+    K1_heard_star_rating:answers['K1']||'',
+    K2_helps_compare:answers['K2']||'',
+    K3_easy_understand:answers['K3']||'',
+    K4_trust_independent:answers['K4']||'',
+    K5_higher_attractive:answers['K5']||'',
+    K6_display_showrooms:answers['K6']||'',
+    K7_price_concern:answers['K7']||'',
+    K8_encourages_mfr:answers['K8']||'',
+    K9_would_recommend:answers['K9']||'',
+    K10_rating_contents:arr('K10'),
+    K11_display_locations:arr('K11'),
+    K12_low_rating_decision:answers['K12']||'',
+    consent_lucky_draw:answers['consent']||'',
+    contact_name:answers['name']||'',
+    contact_email:answers['email']||'',
+    contact_phone:answers['phone']||''
+  };
+
+  try{
+    await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  }catch(e){console.error('Submission error:',e);}
+
+  currentSec=99;
+  render();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── Header updater ───────────────────────────────────────────
+function updateHeader(){
+  document.getElementById('sec-name').textContent=SEC_NAMES[currentSec]||'';
+  const pa=document.getElementById('prog-area');
+  if(currentSec===0){pa.style.display='none';return;}
+  pa.style.display='block';
+  const flow=getFlow(), idx=flow.indexOf(currentSec), total=flow.length-1;
+  const pct=total>0?Math.round((idx/total)*100):0;
+  document.getElementById('prog-lbl').textContent=`Section ${idx} of ${total}`;
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('prog-fill').style.width=pct+'%';
+}
+
+// ═══════════════════════════════════════════════════════════════
+//  SECTIONS
+// ═══════════════════════════════════════════════════════════════
+
+function renderSec0(){
+  const codeOk=(answers['code']||'').length>=4;
+  return [card([
+    secTag('ASEAN MAP · Baseline Survey'),
+    el('h1',{cls:'sec-h'},['ASEAN Motorcyclist Safety Perception Survey']),
+    el('p',{cls:'sec-desc'},['This survey is part of the ',el('strong',{},['ASEAN Motorcycle Assessment Program (MAP)']),', a regional initiative focusing on motorcycle safety star rating systems in ASEAN countries. A follow-up survey will be conducted after the project to measure its impact on safety knowledge and behaviour.']),
+    infoBox('⏱  Estimated time: 15–20 minutes   ·   🏆  Lucky draw: USD 300 prize pool   ·   🔒  All responses are anonymous'),
+    textQ('0','Create your anonymous tracking code','code','e.g. MA15MY','Generate a 6-character personal code using: first 2 letters of your mother\'s name + day of birth (2 digits) + last 2 letters of your country. Example: mother = Maria, born 15th, Malaysia → MA15MY. This code links your baseline and post-project responses without identifying you. Write it down somewhere safe.',[],true),
+    codeOk?okBox('✓  Code noted — keep it safe for the follow-up survey!'):null,
+  ]),navRow(false)];
+}
+
+function renderSec1(){
+  return [card([
+    secTag('Section A'),secH('Demographic Profile'),
+    secDesc('Basic information about yourself. All fields marked * are required.'),
+    radioQ('A1','Gender','A1',['Male','Female','Non-binary / gender diverse','Prefer not to say'],true),
+    radioQ('A2','Age group','A2',['15 – 17 years old','18 – 24 years old','25 – 34 years old','35 – 44 years old','45 – 54 years old','55 – 64 years old','65 years and above'],true),
+    radioQ('A3','Country of residence','A3',ASEAN,true),
+    radioQ('A4','Highest education level completed','A4',['No formal education','Primary education','Secondary education','Vocational / Technical education','Diploma / Pre-university','Bachelor\'s degree','Postgraduate degree (Master\'s / PhD)'],true),
+    radioQ('A5','Marital status','A5',['Single','Married / partnered','Divorced / separated / widowed','Prefer not to say'],true),
+    radioQ('A6','Monthly household income (approx. USD equivalent)','A6',['Below USD 300','USD 300 – 599','USD 600 – 999','USD 1,000 – 1,999','USD 2,000 – 3,999','USD 4,000 and above','Prefer not to say'],true,'Select the range closest to your total monthly household income.',[newBadge()]),
+    radioQ('A7','What best describes your occupation?','A7',['Student','Salaried employee — private sector','Government / public sector employee','Self-employed / business owner','Gig worker / delivery rider / ride-hailing driver','Farmer / agricultural worker','Retired','Unemployed / not currently working','Other'],true,'',[newBadge()]),
+    radioQ('A8','What type of area do you live in?','A8',['Urban (city centre)','Suburban (town / outer city area)','Semi-rural / small town','Rural / village / kampung'],true,'',[newBadge()]),
+    radioQ('A9','Do you ride a motorcycle?','A9',['Yes','No'],true,'Includes riding as the main operator. If you are a pillion passenger only, please select No.'),
+  ]),navRow()];
+}
+
+function renderSec2(){
+  return [card([
+    secTag('Section B'),secH('Motorcycle Riding & Ownership Profile'),
+    secDesc('Answer based on the motorcycle you ride most often.'),
+    radioQ('B1','What best describes the motorcycle you ride most often?','B1',['I own it','A family member owns it','Employer / company / platform provides it','Rented / borrowed','Other'],true),
+    radioQ('B2','What type of motorcycle do you ride most often?','B2',MOTO_TYPES,true),
+    radioQ('B3','Engine capacity of the motorcycle you ride most often','B3',CC,true),
+    textQ('B4','Brand and model of the motorcycle you ride most often','B4','e.g. Honda Wave 125, Yamaha NMAX 155','This helps us understand the safety technology baseline of motorcycles in ASEAN.',[],true),
+    radioQ('B5','How often do you ride a motorcycle?','B5',['Every day','A few times a week','A few times a month','Less than once a month'],true),
+    radioQ('B6','Do you have a valid motorcycle licence?','B6',['Yes — full licence','Yes — provisional / learner licence','No licence','Licence in progress'],true),
+    radioQ('B7','How many years have you been riding (including before obtaining a licence)?','B7',['Less than 1 year','1 – 5 years','6 – 10 years','11 – 20 years','More than 20 years'],true),
+    radioQ('B8','Typical one-way travel distance per motorcycle trip','B8',['Less than 5 km','5 – 10 km','11 – 20 km','21 – 40 km','More than 40 km'],true),
+    checkQ('B9','What are your usual purposes for riding a motorcycle?','B9',['Commuting to work','Going to school / college / university','Work-related riding (delivery, courier, ride-hailing)','Errands (grocery, market, banking)','Recreation / leisure / social activities','Religious activities','Other'],true,'Select all that apply — multiple purposes are allowed.',[newBadge()]),
+    radioQ('B10','What type of road do you usually ride on?','B10',['City / urban roads','Federal / state highway','Rural / village road','A mix of all the above'],true,'',[newBadge()]),
+    radioQ('B11','How often do you ride at night (after sunset)?','B11',['Never','Rarely — less than once a week','Sometimes — 1–3 times a week','Often — most days','Always — every day'],true,'',[newBadge()]),
+  ]),navRow()];
+}
+
+function renderSec3(){
+  return [card([
+    secTag('Section C — New','amber'),secH('Helmet & Protective Equipment'),
+    warnBox('Helmet use is the most evidenced safety intervention for motorcyclists. Please answer honestly — all responses are anonymous.'),
+    radioQ('C1','How often do you wear a helmet when riding a motorcycle?','C1',['Always, on every trip','Most of the time','Sometimes','Rarely','Never'],true),
+    radioQ('C2','What type of helmet do you usually wear?','C2',['Full-face helmet','Open-face / half-helmet','Modular / flip-up helmet','Off-road / motocross helmet','I do not wear a helmet','Varies — depends on the trip'],true),
+    radioQ('C3','Is your helmet certified to a recognised safety standard?','C3',['Yes, it is certified','No, it is not certified','Not sure / I do not know'],true,'Standards include: SIRIM (Malaysia), SNI (Indonesia), TISI (Thailand), ECE 22.06 (Europe), DOT (USA)'),
+    radioQ('C4','How often do you wear motorcycle protective riding gear (armoured jacket, gloves, boots, knee / elbow guards)?','C4',['Always','Most of the time (longer or highway trips)','Sometimes','Rarely — special rides only','Never'],true),
+  ]),navRow()];
+}
+
+function renderSec4(){
+  const rows=[
+    {id:'phone',  label:'Used a mobile phone (call, text, or navigation without a mount) while riding'},
+    {id:'alcohol',label:'Rode shortly after consuming alcohol'},
+    {id:'speed',  label:'Rode significantly above the posted speed limit'},
+    {id:'fatigue',label:'Rode when feeling tired or drowsy'},
+    {id:'nohelmet',label:'Rode without wearing a helmet'},
+    {id:'tailgate',label:'Followed another vehicle very closely (tailgating)'},
+    {id:'weave',  label:'Weaved between lanes in heavy traffic'},
+  ];
+  return [card([
+    secTag('Section D — New','amber'),secH('Riding Behaviour'),
+    warnBox('Please answer honestly. All responses are anonymous. This section establishes the behavioural baseline for comparing pre-project and post-project results.'),
+    matrixQ('D1','In the past 30 days, how often did you do the following while riding?','D1',rows,'Select a frequency for each behaviour.'),
+    radioQ('D2','In the past 12 months, how many times did you almost have a crash but managed to avoid it (a near-miss)?','D2',['None','1 – 2 times','3 – 5 times','6 – 10 times','More than 10 times'],false,'',[newBadge()]),
+    radioQ('D3','During an emergency (e.g. avoiding a sudden hazard), what do you usually do FIRST?','D3',['Apply the front brake only','Apply the rear brake only','Apply both front and rear brakes simultaneously','Release throttle and swerve to avoid the hazard','Put my foot down to slow down','Depends on the situation','Other'],true),
+    radioQ('D4','How confident are you in using the correct braking technique in an emergency?','D4',['1 — Not confident at all','2','3 — Moderately confident','4','5 — Very confident'],true),
+  ]),navRow()];
+}
+
+function renderSec5(){
+  const hasCrash=answers['E1']==='Yes';
+  return [card([
+    secTag('Section E'),secH('Crash Experience'),
+    secDesc('Please answer about your crash history, if applicable.'),
+    radioQ('E1','Have you ever been involved in a road crash while riding a motorcycle?','E1',['Yes','No — Skip to Section F'],true),
+    ...(hasCrash?[
+      radioQ('E2','How many motorcycle crashes were you involved in during the past three years?','E2',['1','2','3','4','5 or more'],true),
+      radioQ('E3','Where did your most recent motorcycle crash happen?','E3',['Straight road','Curve / bend','Junction / intersection','Roundabout','Parking area','Other'],true),
+      radioQ('E4','Did the crash involve another vehicle?','E4',['Yes','No — single-vehicle crash','Not sure'],true),
+      checkQ('E5','What did you do to try to avoid the crash?','E5',['Applied front brake','Applied rear brake','Applied both front and rear brakes','Swerved / changed direction','Slowed down without hard braking','Put my foot down','Could not react in time','Other'],true,'Select all that apply.'),
+      radioQ('E6','Weather and road surface conditions at the time of the crash','E6',['Clear / dry','Raining','Wet / slippery (after rain)','Foggy / low visibility','Flooded surface','Other'],true),
+      radioQ('E7','Lighting condition at the time of the crash','E7',['Daylight','Night with street lighting','Night without street lighting','Dawn / dusk'],true),
+      radioQ('E8','Most serious injury sustained in that crash','E8',['No physical injury','Minor injury — cuts / bruises, no hospital stay','Moderate injury — required hospital treatment','Serious injury — hospitalised more than 1 day','Permanent disability'],true,'',[newBadge()]),
+      radioQ('E9','Did the motorcycle involved in that crash have ABS or CBS?','E9',['Yes — it had ABS','Yes — it had CBS','Yes — it had both ABS and CBS','No — it had neither','Not sure'],false,'This helps us assess the role of braking technology in crash outcomes.',[newBadge()]),
+    ]:[]),
+  ]),navRow()];
+}
+
+function renderSec14(){
+  return [card([
+    secTag('Section B — Non-Rider','gray'),secH('Motorcycle Exposure & Future Plans'),
+    secDesc('You indicated that you do not currently ride. Please answer the following questions.'),
+    radioQ('NR1','Do you ever ride as a pillion passenger on a motorcycle?','NR1',['Yes, regularly (weekly or more)','Yes, occasionally (monthly)','Yes, rarely (a few times a year)','No, never'],true),
+    radioQ('NR2','Have you ever ridden a motorcycle yourself in the past?','NR2',['Yes — I rode regularly but have stopped','Yes — I have tried riding a few times','No — I have never ridden'],true),
+    radioQ('NR3','Do you plan to start riding a motorcycle in the future?','NR3',['Yes — within the next 12 months','Yes — eventually, no specific timeline','No — I do not plan to ride','Not sure'],true),
+    radioQ('NR4','What is the main reason you do not currently ride?','NR4',['Safety concerns','Do not have a licence','Do not need one — I have a car or use public transport','Financial reasons','Health / physical reasons','Not allowed by family','Other'],false),
+  ]),navRow()];
+}
+
+function renderSec6(){
+  return [card([
+    secTag('Section F'),secH('Knowledge & Awareness of Safety Technology'),
+    infoBox('ABS = Anti-lock Braking System. Prevents wheels from locking during hard braking so the rider keeps steering control.\n\nCBS = Combined Braking System. Automatically distributes braking force between front and rear wheels when either brake is applied.'),
+    radioQ('F1','Before today, had you heard of ABS (Anti-lock Braking System) for motorcycles?','F1',['Yes','No','Not sure'],true),
+    radioQ('F2','Before today, had you heard of CBS (Combined Braking System) for motorcycles?','F2',['Yes','No','Not sure'],true),
+    radioQ('F3','What happens when ABS activates during emergency braking?','F3',[{v:'correct',l:'The brake system pulses rapidly to prevent the wheel from locking up'},{v:'wrong1',l:'The brakes lock the wheel completely to stop as fast as possible'},{v:'wrong2',l:'The engine cuts out automatically to slow the motorcycle'},{v:'wrong3',l:'The rear wheel lifts off the ground'},{v:'dk',l:'I am not sure'}],true,'Knowledge check — choose the answer you believe is correct.',[newBadge()]),
+    ...(isRider()?[
+      radioQ('F4','Does the motorcycle you ride most often have ABS and / or CBS?','F4',['ABS only','CBS only','Both ABS and CBS','Neither ABS nor CBS','Not sure']),
+      checkQ('F5','How did you find out whether your motorcycle has ABS or CBS?','F5',['User manual','Dealer / salesperson','Sticker or marking on the motorcycle','Online information / manufacturer website','Mechanic / workshop','Friends or family','I do not know if it has these features','Other'],false,'Select all that apply.'),
+    ]:[]),
+    checkQ('F6','Where do you usually get information about motorcycle safety or safety technology?','F6',['Riding school / licence training','Dealer / salesperson','Mechanic / workshop','Manufacturer\'s website or brochure','YouTube / TikTok / Facebook / social media','Friends or family','Government / road safety agency website','Online reviews / forum / blog','Television or radio','Newspaper or magazine','I do not actively look for safety information','Other'],true,'Select all that apply.'),
+  ]),navRow()];
+}
+
+function renderSec7(){
+  const lks=[
+    {id:'G1',t:'ABS can improve safety during sudden or hard braking.'},
+    {id:'G2',t:'CBS can help riders brake more safely, especially on small-capacity motorcycles.'},
+    {id:'G3',t:'ABS / CBS is especially useful on wet or slippery roads.'},
+    {id:'G4',t:'I would feel safer riding a motorcycle equipped with ABS.'},
+    {id:'G5',t:'I would feel safer riding a motorcycle equipped with CBS than one with a conventional braking system only.'},
+    {id:'G6',t:'Riders still need proper braking skills even when the motorcycle has ABS or CBS.'},
+    {id:'G7',t:'Safety technology (like ABS or CBS) may make some riders overconfident and less careful.'},
+    {id:'G8',t:'I am concerned that ABS / CBS will increase maintenance or repair costs.'},
+    {id:'G9',t:'The government should require all new motorcycles to be independently tested for safety before sale.',nx:true},
+    {id:'G10',t:'I trust the safety claims made by motorcycle manufacturers.',nx:true},
+  ];
+  return [card([
+    secTag('Section G'),secH('Perception of Motorcycle Safety Technology'),
+    secDesc('Scale: 1 = Strongly disagree   ·   3 = Neutral   ·   5 = Strongly agree'),
+    ...lks.map((q,i)=>likertQ(`G${i+1}`,q.t,q.id,q.nx?[newBadge()]:[])),
+    el('hr',{cls:'div'},[]),
+    checkQ('G11','Which safety features do you think are most important for motorcycles?','G11',['Anti-lock Braking System (ABS)','Combined Braking System (CBS)','Good headlights / visibility','Brake light / hazard light','Wider or high-grip tyres','Traction control','Stability control','Blind spot / side warning','Strong frame / crash-resistant body','Tyre pressure monitoring (TPMS)','Smartphone emergency alert / eCall','Not sure','Other'],true,'Select all that apply.'),
+    radioQ('G12','In your opinion, which motorcycles should be required to have ABS?','G12',['All new motorcycles regardless of engine size','Only motorcycles above 125 cc','Only motorcycles above 150 cc','Only motorcycles above 250 cc','No requirement needed','Not sure'],true),
+    radioQ('G13','In your opinion, which motorcycles should be required to have CBS?','G13',['All new motorcycles regardless of engine size','Only motorcycles above 125 cc','Only motorcycles above 150 cc','Only motorcycles above 250 cc','No requirement needed','Not sure'],true),
+  ]),navRow()];
+}
+
+function renderSec8(){
+  const showWhere=answers['H3']==='Yes';
+  return [card([
+    secTag('Section H — New','amber'),secH('Risk Perception & Road Safety Awareness'),
+    secDesc('This section captures your personal sense of risk and exposure to safety communication — key outcome measures for assessing project impact.'),
+    radioQ('H1','How likely do you think it is that you will be seriously injured or killed in a motorcycle crash in the next 12 months?','H1',['Very unlikely','Unlikely','Neither likely nor unlikely','Likely','Very likely'],true),
+    radioQ('H2','Compared to other motorcycle riders, how risky a rider do you consider yourself?','H2',['Much less risky than most riders','Somewhat less risky','About the same risk level','Somewhat more risky','Much more risky than most riders'],true,'Research shows most riders believe they are safer than average. Please answer as honestly as you can.'),
+    radioQ('H3','In the past 6 months, have you seen or heard any road safety campaign about motorcycle safety?','H3',['Yes','No','Not sure'],true),
+    ...(showWhere?[checkQ('H4','Where did you encounter the road safety campaign?','H4',['Television','Social media (Facebook, TikTok, Instagram, YouTube)','Radio','Roadside billboard or banner','Dealer / motorcycle showroom','Workplace','School or university','Government website or mobile app','Newspaper or magazine','Other'],false,'Select all that apply.')]:[]),
+    radioQ('H5','Have you heard of ASEAN NCAP or any ASEAN-specific motorcycle safety rating programme?','H5',['Yes — I am familiar with ASEAN NCAP','Yes — I have heard of a regional motorcycle rating programme (but not sure of the name)','No — I have not heard of any such programme','Not sure'],true,'',[newBadge()]),
+  ]),navRow()];
+}
+
+function renderSec9(){
+  const hasTr=answers['I1']==='Yes';
+  const lks=[
+    {id:'I5',t:'Safe motorcycle riding training should be conducted to enhance riders\' knowledge on motorcycle safety technology.'},
+    {id:'I6',t:'Defensive motorcycle riding training can improve rider skills and reduce crash risk.'},
+    {id:'I7',t:'Sharing riding safety tips (e.g. braking techniques, safe following distance, defensive riding) is useful for improving motorcycle safety among the public.'},
+    {id:'I8',t:'Motorcycle manufacturers should provide more support such as training programmes, safety campaigns, or riding tips for their customers.'},
+  ];
+  return [card([
+    secTag('Section I'),secH('Defensive Riding & Safe Riding Training'),
+    ...(isRider()?[
+      radioQ('I1','After obtaining your motorcycle licence, have you attended any additional safe or defensive riding course?','I1',['Yes','No'],true),
+      ...(hasTr?[checkQ('I2','What type of training have you attended?','I2',['Defensive riding course','Employer / company / platform-provided training','Manufacturer or dealer training','Online course or video','Community / motorcycle club training','Other'],false,'Select all that apply.')]:[]),
+      checkQ('I3','What prevents you from joining safe riding training?','I3',['Too expensive','No time','Training location is too far','I do not know where to find training','I do not think I need it','Not applicable — I have already attended','Other'],false,'Select all that apply.'),
+      radioQ('I3b','If free motorcycle safety training were offered near your home, would you attend?','I3b',['Yes, definitely','Probably yes','Probably not','No','Not sure'],false,'',[newBadge()]),
+    ]:[]),
+    checkQ('I4','How would you prefer to receive motorcycle safety information or training?','I4',['In-person / practical physical training','Online class / webinar','Mobile application','Short social media videos (TikTok / YouTube / Reels)','Blended (online + practical) training','At the workplace or school / university','Government road safety website','Other'],true,'Select all that apply.'),
+    secDesc('Scale: 1 = Strongly disagree   ·   3 = Neutral   ·   5 = Strongly agree'),
+    ...lks.map((q,i)=>likertQ(`I${i+5}`,q.t,q.id)),
+  ]),navRow()];
+}
+
+function renderSec10(){
+  const justBought=answers['J1']==='I recently bought one (within the past 6 months)';
+  return [card([
+    secTag('Section J'),secH('Motorcycle Buying Preferences'),
+    secDesc('For all respondents — your purchasing intentions and priorities are important whether or not you currently ride.'),
+    radioQ('J1','Are you planning to buy or replace a motorcycle in the next 12 months?','J1',['Yes','No','Maybe','I recently bought one (within the past 6 months)'],true),
+    ...(justBought?[radioQ('J1b','Did the motorcycle you recently bought have ABS or CBS?','J1b',['Yes — ABS only','Yes — CBS only','Yes — both ABS and CBS','No — neither','Not sure'],false,'',[newBadge()])]:[]),
+    radioQ('J2','If buying a motorcycle, would you prefer new or used?','J2',['New motorcycle','Used motorcycle','Either — depends on price and condition','Not sure'],true),
+    radioQ('J3','What type of motorcycle are you most likely to buy next?','J3',[...MOTO_TYPES,'Not sure']),
+    checkQ('J4','What are the most important factors when choosing a motorcycle?','J4',['Purchase price','Design / style / colour','Engine power / capacity','Fuel efficiency','Maintenance cost','Resale value','Comfort (seat, riding position)','Safety features (ABS, CBS, lights)','Brand / reputation','Recommendation from friends or family','Availability of spare parts','Other'],true,'Select all that apply.'),
+    radioQ('J5','If two motorcycles are similar in price and design, which would you choose?','J5',['Motorcycle with better safety features (ABS, CBS)','Motorcycle with better fuel efficiency','Motorcycle with stronger engine performance','Motorcycle with better brand reputation / resale value','Not sure'],true),
+    radioQ('J6','How much extra would you be willing to pay for a motorcycle with ABS?','J6',['I would not pay extra for ABS','Less than 3% extra','3 – 5% extra','6 – 10% extra','11 – 20% extra','More than 20% extra','Not sure'],true),
+    radioQ('J7','How much extra would you be willing to pay for a motorcycle with CBS?','J7',['I would not pay extra for CBS','Less than 3% extra','3 – 5% extra','6 – 10% extra','11 – 20% extra','More than 20% extra','Not sure'],true),
+    radioQ('J8','Approximate budget for your next motorcycle purchase','J8',['Below USD 500','USD 500 – 1,000','USD 1,001 – 2,000','USD 2,001 – 4,000','USD 4,001 – 8,000','Above USD 8,000','Not planning to buy','Not sure'],false,'',[newBadge()]),
+  ]),navRow()];
+}
+
+function renderSec11(){
+  const lks=[
+    {id:'K2',t:'A motorcycle safety star rating programme would help me compare the safety level of different motorcycle models.'},
+    {id:'K3',t:'A star rating label would be easy for ordinary riders and buyers to understand.'},
+    {id:'K4',t:'I would trust the star rating more if the testing was conducted by an independent organisation — not the manufacturer.'},
+    {id:'K5',t:'A motorcycle with a higher star rating would be more attractive to me when buying.'},
+    {id:'K6',t:'Star rating information should be displayed in showrooms, advertisements, and online marketplaces.'},
+    {id:'K7',t:'I am concerned that a higher safety rating requirement may increase motorcycle prices.'},
+    {id:'K8',t:'A safety rating programme could encourage motorcycle manufacturers to improve safety standards.'},
+    {id:'K9',t:'I would recommend a higher-rated motorcycle to family or friends.',nx:true},
+  ];
+  return [card([
+    secTag('Section K'),secH('Perception of a Motorcycle Safety Star Rating Programme'),
+    secDesc('A safety star rating programme assesses motorcycles on safety performance and assigns a star rating (e.g. 1–5 stars). Similar programmes exist for cars (ASEAN NCAP). This section asks about your views on a similar programme for motorcycles.'),
+    radioQ('K1','Before today, had you heard of any motorcycle safety rating or star rating programme?','K1',['Yes — I am familiar with it','Yes — I have heard the name but do not know the details','No — I had never heard of it','Not sure'],true),
+    secDesc('Scale: 1 = Strongly disagree   ·   3 = Neutral   ·   5 = Strongly agree'),
+    ...lks.map((q,i)=>likertQ(`K${i+2}`,q.t,q.id,q.nx?[newBadge()]:[])),
+    el('hr',{cls:'div'},[]),
+    checkQ('K10','Which information should be included in a motorcycle safety star rating?','K10',['Braking performance (ABS / CBS effectiveness)','Lighting and visibility performance','Tyre and stability performance','Rider assistance technology','Crash avoidance technology','Structural protection / crashworthiness','Fuel efficiency','Noise level','Not sure','Other'],true,'Select all that apply.'),
+    checkQ('K11','Where would you prefer to see motorcycle safety star rating information?','K11',['Sticker or label on the motorcycle itself','Dealer showroom / point of sale','Manufacturer\'s website','Online marketplace (Lazada, Shopee, Carousell)','Social media','Government / road safety agency website','Mobile app','Printed brochure','Television advertisement','Other'],true,'Select all that apply.'),
+    radioQ('K12','If your preferred motorcycle model had a low safety star rating, what would you most likely do?','K12',['Still buy it regardless of the rating','Compare other models first before deciding','Choose a safer model from the same brand','Choose a safer model from a different brand','Wait until I can afford a safer model','Not sure'],true),
+  ]),navRow()];
+}
+
+function renderSec12(){
+  const agreed=answers['consent']==='Yes — I agree and want to join the lucky draw';
+  return [card([
+    secTag('Lucky Draw','amber'),secH('Personal Contact Information'),
+    infoBox('Optional. By providing your contact details you will be entered into a lucky draw with prizes worth USD 300. Your contact information will be used only for the lucky draw and will not be shared with any third party.'),
+    radioQ('consent','Do you agree to provide your contact information for the lucky draw?','consent',['Yes — I agree and want to join the lucky draw','No — I prefer to remain anonymous']),
+    ...(agreed?[
+      textQ('','Full name','name','Your full name'),
+      textQ('','Email address','email','your@email.com'),
+      textQ('','Phone number (with country code)','phone','e.g. +60 12-345 6789'),
+    ]:[]),
+  ]),navRow(true,true)];
+}
+
+function renderDone(){
+  return [card([
+    div('center','padding:12px 0 24px',[
+      div('','font-size:56px;margin-bottom:18px',['✅']),
+      el('h2',{cls:'sec-h'},['Thank you for completing the survey!']),
+      el('p',{style:'font-size:14px;color:#636366;line-height:1.7;margin:14px 0 0'},['Your response has been submitted and will contribute to the ASEAN MAP baseline dataset. Please keep a note of your anonymous tracking code — you will need it for the follow-up survey.']),
+    ]),
+    el('hr',{cls:'div'},[]),
+    el('p',{style:'font-weight:600;font-size:14px;margin-bottom:10px'},['What happens next?']),
+    el('ul',{style:'font-size:14px;color:#636366;line-height:1.9;padding-left:20px'},[
+      el('li',{},[' A follow-up survey will be conducted after ASEAN MAP project activities are complete']),
+      el('li',{},[' Your anonymous tracking code links your baseline and post-project responses for impact measurement']),
+      el('li',{},[' Lucky draw winners will be contacted via the details provided']),
+      el('li',{},[' Findings will be published to support motorcycle safety policy across ASEAN']),
+    ]),
+    el('hr',{cls:'div'},[]),
+    el('p',{style:'font-size:13px;color:#636366;text-align:center'},['Questions? Contact: ',el('a',{href:'mailto:kdwing@miros.gov.my',style:'color:#185FA5'},['kdwing@miros.gov.my'])]),
+  ])];
+}
+
+// ─── Render dispatcher ────────────────────────────────────────
+function render(){
+  updateHeader();
+  const root=document.getElementById('root');
+  root.innerHTML='';
+  const s=currentSec;
+  const map={0:renderSec0,1:renderSec1,2:renderSec2,3:renderSec3,4:renderSec4,5:renderSec5,6:renderSec6,7:renderSec7,8:renderSec8,9:renderSec9,10:renderSec10,11:renderSec11,12:renderSec12,14:renderSec14,99:renderDone};
+  const fn=map[s];
+  if(fn) fn().forEach(n=>{if(n)root.appendChild(n);});
+}
+
+render();
+</script>
+</body>
+</html>
