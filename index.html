@@ -76,6 +76,24 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-seri
 hr.div{border:none;border-top:1px solid #e0dfd8;margin:20px 0}
 .center{text-align:center}
 @media(max-width:480px){.lk-lbl{font-size:8px}.card{padding:16px}}
+
+/* ── Motorcycle image-card grid ── */
+.moto-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.moto-card{border:2px solid #e0dfd8;border-radius:12px;background:#fff;cursor:pointer;overflow:hidden;transition:border-color .15s,background .15s,box-shadow .15s;display:flex;flex-direction:column}
+.moto-card:hover{border-color:#b5d4f4;background:#f8fbff;box-shadow:0 2px 8px rgba(24,95,165,.08)}
+.moto-card.sel{border-color:#185FA5;background:#e6f1fb;box-shadow:0 0 0 3px rgba(24,95,165,.15)}
+.moto-img-wrap{width:100%;aspect-ratio:4/3;overflow:hidden;background:#f2f1ec;display:flex;align-items:center;justify-content:center}
+.moto-img-wrap img{width:100%;height:100%;object-fit:cover;display:block}
+.moto-img-fallback{font-size:48px;line-height:1}
+.moto-card-body{padding:10px 12px 12px;display:flex;align-items:center;gap:8px}
+.moto-radio{flex-shrink:0;width:18px;height:18px;border:2px solid #c0c0c0;border-radius:50%;display:flex;align-items:center;justify-content:center}
+.moto-card.sel .moto-radio{border-color:#185FA5;background:#185FA5}
+.moto-radio-dot{width:8px;height:8px;border-radius:50%;background:#fff}
+.moto-card-lbl{font-size:13px;font-weight:600;color:#1c1c1e;line-height:1.3}
+.moto-card.sel .moto-card-lbl{color:#185FA5}
+.moto-card-sub{font-size:11px;color:#636366;margin-top:2px;line-height:1.3}
+.moto-text-opts{margin-top:10px}
+@media(max-width:420px){.moto-grid{grid-template-columns:1fr}.moto-card-lbl{font-size:12px}}
 </style>
 </head>
 <body>
@@ -115,6 +133,18 @@ let submitting = false;
 // ─── Reference data ───────────────────────────────────────────
 const ASEAN = ['Malaysia','Thailand','Vietnam','Indonesia','Philippines','Myanmar','Cambodia','Laos','Singapore','Brunei','Other ASEAN country','Outside ASEAN'];
 const MOTO_TYPES = ['Underbone / cub (e.g. Honda Wave, Yamaha EX5)','Automatic scooter (e.g. Honda PCX, Yamaha NMAX)','Sport bike (e.g. Yamaha R15, Honda CBR150)','Touring / cruiser (e.g. Honda CB500, Kawasaki Versys)','Naked / standard (e.g. Honda CB150R, Yamaha MT-15)','Dirt / off-road bike','Electric motorcycle or scooter','Other'];
+
+// Motorcycle type image data — image cards for B2 & J3
+const MOTO_IMG_DATA = [
+  { v:'Underbone / cub (e.g. Honda Wave, Yamaha EX5)',       l:'Underbone / cub',     sub:'e.g. Honda Wave, Yamaha EX5',   emoji:'🏍️', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Honda_Wave_125i.jpg' },
+  { v:'Automatic scooter (e.g. Honda PCX, Yamaha NMAX)',     l:'Scooter',              sub:'e.g. Honda PCX, Yamaha NMAX',   emoji:'🛵', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_NMax_155_2020.jpg' },
+  { v:'Sport bike (e.g. Yamaha R15, Honda CBR150)',          l:'Sport bike',           sub:'e.g. Yamaha R15, Honda CBR150', emoji:'🏎️', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_YZF-R15_2019.jpg' },
+  { v:'Touring / cruiser (e.g. Honda CB500, Kawasaki Versys)',l:'Touring / cruiser',   sub:'e.g. Honda CB500, Kawasaki Versys', emoji:'🏍️', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Honda_CB500F_2013.jpg' },
+  { v:'Naked / standard (e.g. Honda CB150R, Yamaha MT-15)',  l:'Naked / standard',    sub:'e.g. Honda CB150R, Yamaha MT-15',emoji:'🏍️', img:'https://commons.wikimedia.org/wiki/Special:FilePath/Yamaha_MT-15_2019.jpg' },
+  { v:'Dirt / off-road bike',                                l:'Dirt / off-road bike', sub:'',                              emoji:'🤿', img:'https://commons.wikimedia.org/wiki/Special:FilePath/KTM_250_EXC-F_2018.jpg' },
+];
+// Remaining options shown as plain radio buttons below the grid
+const MOTO_EXTRA_TYPES = ['Electric motorcycle or scooter','Other'];
 const CC = ['125 cc and below','126 – 150 cc','151 – 200 cc','201 – 250 cc','251 – 500 cc','501 – 800 cc','Above 801 cc','Electric (no cc)','Not sure'];
 
 const SEC_NAMES = {0:'Introduction',1:'A — Demographics',2:'B — Riding Profile',3:'C — Helmet & PPE',4:'D — Riding Behaviour',5:'E — Crash Experience',6:'F — Safety Tech Knowledge',7:'G — Tech Perception',8:'H — Risk & Awareness',9:'I — Training',10:'J — Buying Preferences',11:'K — Star Rating',12:'Lucky Draw & Contact',13:'Complete',14:'B — Non-Rider'};
@@ -262,6 +292,52 @@ function matrixQ(num,text,key,rows,hint=''){
   tbl.appendChild(tbody);
   mw.appendChild(tbl);
   wrap.appendChild(mw);
+  return wrap;
+}
+
+// ─── Motorcycle image-card question ───────────────────────────
+function motoTypeQ(num,text,key,req=false,includeNotSure=false,extras=[]){
+  const wrap=div('q-block');
+  wrap.appendChild(qLabel(num,text,extras,req));
+  wrap.appendChild(el('p',{cls:'q-hint'},['Mark only one — tap a card to select.']));
+  const grid=div('moto-grid');
+  MOTO_IMG_DATA.forEach(item=>{
+    const sel=answers[key]===item.v;
+    const card=el('div',{cls:`moto-card${sel?' sel':''}`,onclick:()=>setA(key,item.v)});
+    const imgWrap=div('moto-img-wrap');
+    const img=el('img',{src:item.img,alt:item.l,loading:'lazy'});
+    img.addEventListener('error',function(){
+      if(imgWrap.contains(this))imgWrap.removeChild(this);
+      const fb=div('moto-img-fallback');
+      fb.textContent=item.emoji;
+      imgWrap.appendChild(fb);
+    });
+    imgWrap.appendChild(img);
+    card.appendChild(imgWrap);
+    const body=div('moto-card-body');
+    const radio=div('moto-radio');
+    if(sel)radio.appendChild(div('moto-radio-dot'));
+    body.appendChild(radio);
+    const lblWrap=div('');
+    lblWrap.appendChild(el('div',{cls:'moto-card-lbl'},[item.l]));
+    if(item.sub)lblWrap.appendChild(el('div',{cls:'moto-card-sub'},[item.sub]));
+    body.appendChild(lblWrap);
+    card.appendChild(body);
+    grid.appendChild(card);
+  });
+  wrap.appendChild(grid);
+  const plainOpts=includeNotSure?[...MOTO_EXTRA_TYPES,'Not sure']:MOTO_EXTRA_TYPES;
+  const extraWrap=div('moto-text-opts');
+  plainOpts.forEach(opt=>{
+    const sel=answers[key]===opt;
+    const btn=el('button',{cls:`opt${sel?' sel':''}`,onclick:()=>setA(key,opt)});
+    const ic=el('span',{cls:`opt-icon r${sel?' sel':''}`});
+    if(sel)ic.appendChild(span('opt-dot',''));
+    btn.appendChild(ic);
+    btn.appendChild(el('span',{},[opt]));
+    extraWrap.appendChild(btn);
+  });
+  wrap.appendChild(extraWrap);
   return wrap;
 }
 
@@ -425,14 +501,12 @@ function updateHeader(){
 // ═══════════════════════════════════════════════════════════════
 
 function renderSec0(){
-  const codeOk=(answers['code']||'').length>=4;
   return [card([
     secTag('ASEAN MAP · Baseline Survey'),
     el('h1',{cls:'sec-h'},['ASEAN Motorcyclist Safety Perception Survey']),
     el('p',{cls:'sec-desc'},['This survey is part of the ',el('strong',{},['ASEAN Motorcycle Assessment Program (MAP)']),', a regional initiative focusing on motorcycle safety star rating systems in ASEAN countries. A follow-up survey will be conducted after the project to measure its impact on safety knowledge and behaviour.']),
     infoBox('⏱  Estimated time: 15–20 minutes   ·   🏆  Lucky draw: USD 300 prize pool   ·   🔒  All responses are anonymous'),
-    textQ('0','Create your anonymous tracking code','code','e.g. MA15MY','Generate a 6-character personal code using: first 2 letters of your mother\'s name + day of birth (2 digits) + last 2 letters of your country. Example: mother = Maria, born 15th, Malaysia → MA15MY. This code links your baseline and post-project responses without identifying you. Write it down somewhere safe.',[],true),
-    codeOk?okBox('✓  Code noted — keep it safe for the follow-up survey!'):null,
+
   ]),navRow(false)];
 }
 
@@ -457,7 +531,7 @@ function renderSec2(){
     secTag('Section B'),secH('Motorcycle Riding & Ownership Profile'),
     secDesc('Answer based on the motorcycle you ride most often.'),
     radioQ('B1','What best describes the motorcycle you ride most often?','B1',['I own it','A family member owns it','Employer / company / platform provides it','Rented / borrowed','Other'],true),
-    radioQ('B2','What type of motorcycle do you ride most often?','B2',MOTO_TYPES,true),
+    motoTypeQ('B2','What type of motorcycle do you ride most often?','B2',true,false),
     radioQ('B3','Engine capacity of the motorcycle you ride most often','B3',CC,true),
     textQ('B4','Brand and model of the motorcycle you ride most often','B4','e.g. Honda Wave 125, Yamaha NMAX 155','This helps us understand the safety technology baseline of motorcycles in ASEAN.',[],true),
     radioQ('B5','How often do you ride a motorcycle?','B5',['Every day','A few times a week','A few times a month','Less than once a month'],true),
@@ -613,7 +687,7 @@ function renderSec10(){
     radioQ('J1','Are you planning to buy or replace a motorcycle in the next 12 months?','J1',['Yes','No','Maybe','I recently bought one (within the past 6 months)'],true),
     ...(justBought?[radioQ('J1b','Did the motorcycle you recently bought have ABS or CBS?','J1b',['Yes — ABS only','Yes — CBS only','Yes — both ABS and CBS','No — neither','Not sure'],false,'',[newBadge()])]:[]),
     radioQ('J2','If buying a motorcycle, would you prefer new or used?','J2',['New motorcycle','Used motorcycle','Either — depends on price and condition','Not sure'],true),
-    radioQ('J3','What type of motorcycle are you most likely to buy next?','J3',[...MOTO_TYPES,'Not sure']),
+    motoTypeQ('J3','What type of motorcycle are you most likely to buy next?','J3',false,true),
     checkQ('J4','What are the most important factors when choosing a motorcycle?','J4',['Purchase price','Design / style / colour','Engine power / capacity','Fuel efficiency','Maintenance cost','Resale value','Comfort (seat, riding position)','Safety features (ABS, CBS, lights)','Brand / reputation','Recommendation from friends or family','Availability of spare parts','Other'],true,'Select all that apply.'),
     radioQ('J5','If two motorcycles are similar in price and design, which would you choose?','J5',['Motorcycle with better safety features (ABS, CBS)','Motorcycle with better fuel efficiency','Motorcycle with stronger engine performance','Motorcycle with better brand reputation / resale value','Not sure'],true),
     radioQ('J6','How much extra would you be willing to pay for a motorcycle with ABS?','J6',['I would not pay extra for ABS','Less than 3% extra','3 – 5% extra','6 – 10% extra','11 – 20% extra','More than 20% extra','Not sure'],true),
